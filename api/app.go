@@ -1,16 +1,17 @@
 package satori_codingtest_2
 
 import (
-	"io"
-	"net/http"
-
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
+	"github.com/gorilla/mux"
 )
 
+var router *mux.Router
+
 func init() {
-	functions.HTTP("hello", helloWorld)
+	router = Router()
+	functions.HTTP("hello", router.ServeHTTP)
 }
 
-func helloWorld(writer http.ResponseWriter, request *http.Request) {
-	io.WriteString(writer, "Hello World")
-}
+// func entryPoint(writer http.ResponseWriter, request *http.Request) {
+// 	router.ServeHTTP()
+// }

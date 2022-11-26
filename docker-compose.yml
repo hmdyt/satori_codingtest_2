@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./web
+    container_name: nextjs
+    volumes:
+      - ./web:/app
+    ports:
+      - "3017:3000"
+    environment:
+      - NODE_ENV="" # disable production mode
+    entrypoint: sh -c "yarn dev"
+
+  api:
+    image: golang:alpine3.16
+    container_name: api
+    working_dir: /app
+    volumes:
+      - ./api:/app
+    ports:
+      - "5017:5000"
+    entrypoint: sh -c "FUNCTION_TARGET=hello go run ./entrypoint/main.go"

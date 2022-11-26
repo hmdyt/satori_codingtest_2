@@ -1,0 +1,41 @@
+name: Deploy
+
+on: push
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: "GCP Auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v1"
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Format
+        run: terraform fmt -check
+        working-directory: ./infra
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./infra
+
+      - name: Terraform Validate
+        run: terraform validate -no-color
+        working-directory: ./infra
+
+      - name: Build Image
+        run: gcloud builds submit --tag asia-northeast1-docker.pkg.dev/satori-codingtest-2/satori-codingtest-2-web/web --project=satori-codingtest-2
+        working-directory: ./web
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -replace=google_cloud_run_service.web
+        working-directory: ./infra

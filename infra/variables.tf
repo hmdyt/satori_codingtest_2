@@ -22,3 +22,8 @@ variable "api_output_path" {
   type    = string
   default = "/tmp/function.zip"
 }
+
+variable "web_container_uri" {
+  type    = string
+  default = "asia-northeast1-docker.pkg.dev/satori-codingtest-2/satori-codingtest-2-web/web:latest"
+}

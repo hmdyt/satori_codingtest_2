@@ -6,7 +6,6 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/gorilla/schema"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/hmdyt/satori_codingtest-2/crud"
@@ -14,19 +13,11 @@ import (
 	"github.com/hmdyt/satori_codingtest-2/model"
 )
 
-var decoder = schema.NewDecoder()
-
 func HandlePostUser(writer http.ResponseWriter, request *http.Request) {
 	writer.Header().Set("Content-Type", "application/json")
 
-	err := request.ParseForm()
-	if err != nil {
-		model.WriteError(writer, http.StatusBadRequest, err.Error())
-		return
-	}
-
-	var userPostRequest model.UserBase
-	err = decoder.Decode(&userPostRequest, request.PostForm)
+	var userPostRequest model.UserPostRequest
+	err := decodeRequest(request, &userPostRequest)
 	if err != nil {
 		model.WriteError(writer, http.StatusBadRequest, err.Error())
 		return
@@ -53,7 +44,7 @@ func HandleGetUser(writer http.ResponseWriter, request *http.Request) {
 	writer.WriteHeader(http.StatusAccepted)
 
 	path_params := mux.Vars(request)
-	user_id, err := strconv.Atoi(path_params["id"])
+	user_id, err := strconv.Atoi(path_params["user_id"])
 	if err != nil {
 		model.WriteError(writer, http.StatusBadRequest, err.Error())
 	}

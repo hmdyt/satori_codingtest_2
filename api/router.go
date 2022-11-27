@@ -1,7 +1,7 @@
 package satori_codingtest_2
 
 import (
-	"io"
+	"encoding/json"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -20,5 +20,5 @@ func Router() *mux.Router {
 }
 
 func getPing(writer http.ResponseWriter, request *http.Request) {
-	io.WriteString(writer, "pong")
+	json.NewEncoder(writer).Encode(map[string]string{"ping": "pong"})
 }

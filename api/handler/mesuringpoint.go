@@ -9,6 +9,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/hmdyt/satori_codingtest-2/crud"
 	db "github.com/hmdyt/satori_codingtest-2/db"
+	"github.com/hmdyt/satori_codingtest-2/ent"
 	"github.com/hmdyt/satori_codingtest-2/model"
 )
 
@@ -58,7 +59,9 @@ func HandleGetMesuringPoints(writer http.ResponseWriter, request *http.Request) 
 		model.WriteError(writer, http.StatusBadRequest, err.Error())
 	}
 
-	json.NewEncoder(writer).Encode(points)
+	json.NewEncoder(writer).Encode(
+		map[string][]*ent.MesuringPoint{"mesuring_points": points},
+	)
 	writer.WriteHeader(http.StatusAccepted)
 }
 

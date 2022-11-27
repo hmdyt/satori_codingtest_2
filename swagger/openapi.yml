@@ -1,0 +1,135 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "API"
+paths:
+  /ping:
+    get:
+      summary: "ヘルスチェック用エンドポイント"
+      description: "pongを返す"
+      responses:
+        200:
+          description: "成功時"
+          schema:
+            type: "object"
+            properties:
+              ping:
+                type: "string"
+                format: "pong"
+
+  /user:
+    post:
+      summary: "create user"
+      description: "create user"
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+              email:
+                type: "string"
+      responses:
+        200:
+          description: "成功"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+              name:
+                type: "string"
+              email:
+                type: "string"
+
+  /user/{user_id}:
+    get:
+      summary: "get user"
+      description: "get user"
+      parameters:
+        - name: "user_id"
+          in: "path"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "成功"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+              name:
+                type: "string"
+              email:
+                type: "string"
+
+  /mesuringpoint:
+    post:
+      summary: "create mesuring point"
+      description: "create mesuring point"
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: integer
+              body_mass:
+                type: number
+      responses:
+        200:
+          description: success
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              user_id:
+                type: integer
+              body_mass:
+                type: number
+              created_at:
+                type: string
+
+  /mesuringpoint/{user_id}:
+    get:
+      summary: "get mesuring point"
+      description: "get mesuring point"
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: success
+          schema:
+            type: object
+            properties:
+              mesuring_point:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    user_id:
+                      type: integer
+                    body_mass:
+                      type: number
+                    created_at:
+                      type: string
+    delete:
+      summary: "delete mesuring point"
+      description: "delete mesuring point"
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          type: integer

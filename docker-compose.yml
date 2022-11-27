@@ -33,3 +33,13 @@ services:
       - MYSQL_DATABASE=testDatabase
       - MYSQL_USER=testUser
       - MYSQL_PASSWORD=testPassword
+    
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: "swagger-ui"
+    ports:
+      - "8017:8080"
+    volumes:
+      - ./swagger:/tmp/swagger
+    environment:
+      SWAGGER_JSON: /tmp/swagger/openapi.yml

@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"context"
 	"encoding/json"
 	"net/http"
 	"strconv"
@@ -10,6 +9,7 @@ import (
 	"github.com/gorilla/schema"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/hmdyt/satori_codingtest-2/crud"
 	db "github.com/hmdyt/satori_codingtest-2/db"
 	"github.com/hmdyt/satori_codingtest-2/model"
 )
@@ -34,11 +34,7 @@ func HandlePostUser(writer http.ResponseWriter, request *http.Request) {
 
 	client := db.GetDataBaseClient()
 	defer client.Close()
-	ctx := context.Background()
-	user, err := client.User.Create().
-		SetName(userPostRequest.Name).
-		SetEmail(userPostRequest.Email).
-		Save(ctx)
+	user, err := crud.CreateUser(client, userPostRequest.Name, userPostRequest.Email)
 	if err != nil {
 		model.WriteError(writer, http.StatusBadRequest, err.Error())
 		return
@@ -64,7 +60,6 @@ func HandleGetUser(writer http.ResponseWriter, request *http.Request) {
 
 	client := db.GetDataBaseClient()
 	defer client.Close()
-	ctx := context.Background()
-	user, _ := client.User.Get(ctx, user_id)
+	user := crud.GetUser(client, user_id)
 	json.NewEncoder(writer).Encode(user)
 }

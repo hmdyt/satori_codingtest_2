@@ -15,3 +15,13 @@ func GetDataBaseClient() *ent.Client {
 	}
 	return client
 }
+
+func GetTestDatabaseClient() *ent.Client {
+	os.Remove("test.sqlite")
+	client, err := ent.Open("sqlite3", "file:test.sqlite?mode=memory&cache=shared&_fk=1")
+	if err != nil {
+		fmt.Printf("DB Open Error: %s \n", err.Error())
+		os.Exit(1)
+	}
+	return client
+}

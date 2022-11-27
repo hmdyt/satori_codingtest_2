@@ -15,9 +15,31 @@ services:
   api:
     image: golang:alpine3.16
     container_name: api
+    restart: "always"
     working_dir: /app
     volumes:
       - ./api:/app
     ports:
       - "5017:5000"
-    entrypoint: sh -c "FUNCTION_TARGET=hello go run ./entrypoint/main.go"
+    entrypoint: sh -c "go run migrate/migrate.go && FUNCTION_TARGET=hello go run ./entrypoint/main.go"
+
+  mysql:
+    image: mysql
+    container_name: mysql
+    expose:
+      - 3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootPassword
+      - MYSQL_DATABASE=testDatabase
+      - MYSQL_USER=testUser
+      - MYSQL_PASSWORD=testPassword
+    
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: "swagger-ui"
+    ports:
+      - "8017:8080"
+    volumes:
+      - ./swagger:/tmp/swagger
+    environment:
+      SWAGGER_JSON: /tmp/swagger/openapi.yml

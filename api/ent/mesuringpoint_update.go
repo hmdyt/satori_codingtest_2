@@ -29,14 +29,14 @@ func (mpu *MesuringPointUpdate) Where(ps ...predicate.MesuringPoint) *MesuringPo
 }
 
 // SetUserID sets the "user_id" field.
-func (mpu *MesuringPointUpdate) SetUserID(i int64) *MesuringPointUpdate {
+func (mpu *MesuringPointUpdate) SetUserID(i int) *MesuringPointUpdate {
 	mpu.mutation.ResetUserID()
 	mpu.mutation.SetUserID(i)
 	return mpu
 }
 
 // AddUserID adds i to the "user_id" field.
-func (mpu *MesuringPointUpdate) AddUserID(i int64) *MesuringPointUpdate {
+func (mpu *MesuringPointUpdate) AddUserID(i int) *MesuringPointUpdate {
 	mpu.mutation.AddUserID(i)
 	return mpu
 }
@@ -167,10 +167,10 @@ func (mpu *MesuringPointUpdate) sqlSave(ctx context.Context) (n int, err error) 
 		}
 	}
 	if value, ok := mpu.mutation.UserID(); ok {
-		_spec.SetField(mesuringpoint.FieldUserID, field.TypeInt64, value)
+		_spec.SetField(mesuringpoint.FieldUserID, field.TypeInt, value)
 	}
 	if value, ok := mpu.mutation.AddedUserID(); ok {
-		_spec.AddField(mesuringpoint.FieldUserID, field.TypeInt64, value)
+		_spec.AddField(mesuringpoint.FieldUserID, field.TypeInt, value)
 	}
 	if value, ok := mpu.mutation.BodyMass(); ok {
 		_spec.SetField(mesuringpoint.FieldBodyMass, field.TypeFloat64, value)
@@ -201,14 +201,14 @@ type MesuringPointUpdateOne struct {
 }
 
 // SetUserID sets the "user_id" field.
-func (mpuo *MesuringPointUpdateOne) SetUserID(i int64) *MesuringPointUpdateOne {
+func (mpuo *MesuringPointUpdateOne) SetUserID(i int) *MesuringPointUpdateOne {
 	mpuo.mutation.ResetUserID()
 	mpuo.mutation.SetUserID(i)
 	return mpuo
 }
 
 // AddUserID adds i to the "user_id" field.
-func (mpuo *MesuringPointUpdateOne) AddUserID(i int64) *MesuringPointUpdateOne {
+func (mpuo *MesuringPointUpdateOne) AddUserID(i int) *MesuringPointUpdateOne {
 	mpuo.mutation.AddUserID(i)
 	return mpuo
 }
@@ -369,10 +369,10 @@ func (mpuo *MesuringPointUpdateOne) sqlSave(ctx context.Context) (_node *Mesurin
 		}
 	}
 	if value, ok := mpuo.mutation.UserID(); ok {
-		_spec.SetField(mesuringpoint.FieldUserID, field.TypeInt64, value)
+		_spec.SetField(mesuringpoint.FieldUserID, field.TypeInt, value)
 	}
 	if value, ok := mpuo.mutation.AddedUserID(); ok {
-		_spec.AddField(mesuringpoint.FieldUserID, field.TypeInt64, value)
+		_spec.AddField(mesuringpoint.FieldUserID, field.TypeInt, value)
 	}
 	if value, ok := mpuo.mutation.BodyMass(); ok {
 		_spec.SetField(mesuringpoint.FieldBodyMass, field.TypeFloat64, value)

@@ -81,7 +81,7 @@ func IDLTE(id int) predicate.MesuringPoint {
 }
 
 // UserID applies equality check predicate on the "user_id" field. It's identical to UserIDEQ.
-func UserID(v int64) predicate.MesuringPoint {
+func UserID(v int) predicate.MesuringPoint {
 	return predicate.MesuringPoint(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldUserID), v))
 	})
@@ -102,21 +102,21 @@ func CreatedAt(v time.Time) predicate.MesuringPoint {
 }
 
 // UserIDEQ applies the EQ predicate on the "user_id" field.
-func UserIDEQ(v int64) predicate.MesuringPoint {
+func UserIDEQ(v int) predicate.MesuringPoint {
 	return predicate.MesuringPoint(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldUserID), v))
 	})
 }
 
 // UserIDNEQ applies the NEQ predicate on the "user_id" field.
-func UserIDNEQ(v int64) predicate.MesuringPoint {
+func UserIDNEQ(v int) predicate.MesuringPoint {
 	return predicate.MesuringPoint(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldUserID), v))
 	})
 }
 
 // UserIDIn applies the In predicate on the "user_id" field.
-func UserIDIn(vs ...int64) predicate.MesuringPoint {
+func UserIDIn(vs ...int) predicate.MesuringPoint {
 	v := make([]any, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -127,7 +127,7 @@ func UserIDIn(vs ...int64) predicate.MesuringPoint {
 }
 
 // UserIDNotIn applies the NotIn predicate on the "user_id" field.
-func UserIDNotIn(vs ...int64) predicate.MesuringPoint {
+func UserIDNotIn(vs ...int) predicate.MesuringPoint {
 	v := make([]any, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -138,28 +138,28 @@ func UserIDNotIn(vs ...int64) predicate.MesuringPoint {
 }
 
 // UserIDGT applies the GT predicate on the "user_id" field.
-func UserIDGT(v int64) predicate.MesuringPoint {
+func UserIDGT(v int) predicate.MesuringPoint {
 	return predicate.MesuringPoint(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldUserID), v))
 	})
 }
 
 // UserIDGTE applies the GTE predicate on the "user_id" field.
-func UserIDGTE(v int64) predicate.MesuringPoint {
+func UserIDGTE(v int) predicate.MesuringPoint {
 	return predicate.MesuringPoint(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldUserID), v))
 	})
 }
 
 // UserIDLT applies the LT predicate on the "user_id" field.
-func UserIDLT(v int64) predicate.MesuringPoint {
+func UserIDLT(v int) predicate.MesuringPoint {
 	return predicate.MesuringPoint(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldUserID), v))
 	})
 }
 
 // UserIDLTE applies the LTE predicate on the "user_id" field.
-func UserIDLTE(v int64) predicate.MesuringPoint {
+func UserIDLTE(v int) predicate.MesuringPoint {
 	return predicate.MesuringPoint(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldUserID), v))
 	})

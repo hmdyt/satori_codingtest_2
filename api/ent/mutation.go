@@ -35,8 +35,8 @@ type MesuringPointMutation struct {
 	op            Op
 	typ           string
 	id            *int
-	user_id       *int64
-	adduser_id    *int64
+	user_id       *int
+	adduser_id    *int
 	body_mass     *float64
 	addbody_mass  *float64
 	created_at    *time.Time
@@ -145,13 +145,13 @@ func (m *MesuringPointMutation) IDs(ctx context.Context) ([]int, error) {
 }
 
 // SetUserID sets the "user_id" field.
-func (m *MesuringPointMutation) SetUserID(i int64) {
+func (m *MesuringPointMutation) SetUserID(i int) {
 	m.user_id = &i
 	m.adduser_id = nil
 }
 
 // UserID returns the value of the "user_id" field in the mutation.
-func (m *MesuringPointMutation) UserID() (r int64, exists bool) {
+func (m *MesuringPointMutation) UserID() (r int, exists bool) {
 	v := m.user_id
 	if v == nil {
 		return
@@ -162,7 +162,7 @@ func (m *MesuringPointMutation) UserID() (r int64, exists bool) {
 // OldUserID returns the old "user_id" field's value of the MesuringPoint entity.
 // If the MesuringPoint object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *MesuringPointMutation) OldUserID(ctx context.Context) (v int64, err error) {
+func (m *MesuringPointMutation) OldUserID(ctx context.Context) (v int, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldUserID is only allowed on UpdateOne operations")
 	}
@@ -177,7 +177,7 @@ func (m *MesuringPointMutation) OldUserID(ctx context.Context) (v int64, err err
 }
 
 // AddUserID adds i to the "user_id" field.
-func (m *MesuringPointMutation) AddUserID(i int64) {
+func (m *MesuringPointMutation) AddUserID(i int) {
 	if m.adduser_id != nil {
 		*m.adduser_id += i
 	} else {
@@ -186,7 +186,7 @@ func (m *MesuringPointMutation) AddUserID(i int64) {
 }
 
 // AddedUserID returns the value that was added to the "user_id" field in this mutation.
-func (m *MesuringPointMutation) AddedUserID() (r int64, exists bool) {
+func (m *MesuringPointMutation) AddedUserID() (r int, exists bool) {
 	v := m.adduser_id
 	if v == nil {
 		return
@@ -360,7 +360,7 @@ func (m *MesuringPointMutation) OldField(ctx context.Context, name string) (ent.
 func (m *MesuringPointMutation) SetField(name string, value ent.Value) error {
 	switch name {
 	case mesuringpoint.FieldUserID:
-		v, ok := value.(int64)
+		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -416,7 +416,7 @@ func (m *MesuringPointMutation) AddedField(name string) (ent.Value, bool) {
 func (m *MesuringPointMutation) AddField(name string, value ent.Value) error {
 	switch name {
 	case mesuringpoint.FieldUserID:
-		v, ok := value.(int64)
+		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}

@@ -17,7 +17,7 @@ type MesuringPoint struct {
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
 	// UserID holds the value of the "user_id" field.
-	UserID int64 `json:"user_id,omitempty"`
+	UserID int `json:"user_id,omitempty"`
 	// BodyMass holds the value of the "body_mass" field.
 	BodyMass float64 `json:"body_mass,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -60,7 +60,7 @@ func (mp *MesuringPoint) assignValues(columns []string, values []any) error {
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field user_id", values[i])
 			} else if value.Valid {
-				mp.UserID = value.Int64
+				mp.UserID = int(value.Int64)
 			}
 		case mesuringpoint.FieldBodyMass:
 			if value, ok := values[i].(*sql.NullFloat64); !ok {

@@ -41,7 +41,7 @@ func ValidColumn(column string) bool {
 
 var (
 	// UserIDValidator is a validator for the "user_id" field. It is called by the builders before save.
-	UserIDValidator func(int64) error
+	UserIDValidator func(int) error
 	// BodyMassValidator is a validator for the "body_mass" field. It is called by the builders before save.
 	BodyMassValidator func(float64) error
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.

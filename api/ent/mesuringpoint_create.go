@@ -21,7 +21,7 @@ type MesuringPointCreate struct {
 }
 
 // SetUserID sets the "user_id" field.
-func (mpc *MesuringPointCreate) SetUserID(i int64) *MesuringPointCreate {
+func (mpc *MesuringPointCreate) SetUserID(i int) *MesuringPointCreate {
 	mpc.mutation.SetUserID(i)
 	return mpc
 }
@@ -178,7 +178,7 @@ func (mpc *MesuringPointCreate) createSpec() (*MesuringPoint, *sqlgraph.CreateSp
 		}
 	)
 	if value, ok := mpc.mutation.UserID(); ok {
-		_spec.SetField(mesuringpoint.FieldUserID, field.TypeInt64, value)
+		_spec.SetField(mesuringpoint.FieldUserID, field.TypeInt, value)
 		_node.UserID = value
 	}
 	if value, ok := mpc.mutation.BodyMass(); ok {

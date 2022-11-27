@@ -253,7 +253,7 @@ func (mpq *MesuringPointQuery) Clone() *MesuringPointQuery {
 // Example:
 //
 //	var v []struct {
-//		UserID int64 `json:"user_id,omitempty"`
+//		UserID int `json:"user_id,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
@@ -281,7 +281,7 @@ func (mpq *MesuringPointQuery) GroupBy(field string, fields ...string) *Mesuring
 // Example:
 //
 //	var v []struct {
-//		UserID int64 `json:"user_id,omitempty"`
+//		UserID int `json:"user_id,omitempty"`
 //	}
 //
 //	client.MesuringPoint.Query().

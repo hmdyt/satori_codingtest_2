@@ -11,7 +11,7 @@ var (
 	// MesuringPointsColumns holds the columns for the "mesuring_points" table.
 	MesuringPointsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "user_id", Type: field.TypeInt64},
+		{Name: "user_id", Type: field.TypeInt},
 		{Name: "body_mass", Type: field.TypeFloat64},
 		{Name: "created_at", Type: field.TypeTime},
 	}

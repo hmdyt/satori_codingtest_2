@@ -14,7 +14,7 @@ type MesuringPoint struct {
 
 func (MesuringPoint) Fields() []ent.Field {
 	return []ent.Field{
-		field.Int64("user_id").Positive(),
+		field.Int("user_id").Positive(),
 		field.Float("body_mass").Positive(),
 		field.Time("created_at").Default(time.Now),
 	}

@@ -18,7 +18,7 @@ func init() {
 	// mesuringpointDescUserID is the schema descriptor for user_id field.
 	mesuringpointDescUserID := mesuringpointFields[0].Descriptor()
 	// mesuringpoint.UserIDValidator is a validator for the "user_id" field. It is called by the builders before save.
-	mesuringpoint.UserIDValidator = mesuringpointDescUserID.Validators[0].(func(int64) error)
+	mesuringpoint.UserIDValidator = mesuringpointDescUserID.Validators[0].(func(int) error)
 	// mesuringpointDescBodyMass is the schema descriptor for body_mass field.
 	mesuringpointDescBodyMass := mesuringpointFields[1].Descriptor()
 	// mesuringpoint.BodyMassValidator is a validator for the "body_mass" field. It is called by the builders before save.

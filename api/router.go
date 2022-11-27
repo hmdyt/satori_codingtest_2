@@ -11,7 +11,8 @@ import (
 func Router() *mux.Router {
 	router := mux.NewRouter()
 	router.HandleFunc("/ping", getPing).Methods("GET")
-	router.HandleFunc("/user", handler.HandleGetUser).Methods("GET")
+	router.HandleFunc("/user/{id}", handler.HandleGetUser).Methods("GET")
+	router.HandleFunc("/user", handler.HandlePostUser).Methods("POST")
 	return router
 }
 

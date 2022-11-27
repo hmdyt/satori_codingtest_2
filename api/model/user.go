@@ -1,6 +1,9 @@
 package model
 
-type User struct {
-	Id   int
-	Name string
+type UserBase struct {
+	Name  string
+	Email string
+}
+type UserPostRequest struct {
+	UserBase
 }

@@ -8,7 +8,13 @@ import (
 )
 
 func GetDataBaseClient() *ent.Client {
-	client, err := ent.Open("mysql", "testUser:testPassword@tcp(mysql:3306)/testDatabase?parseTime=True")
+	client, err := ent.Open("mysql", fmt.Sprintf(
+		"%s:%s@tcp(%s)/%s?parseTime=True",
+		os.Getenv("MYSQL_USER"),
+		os.Getenv("MYSQL_PASSWORD"),
+		os.Getenv("MYSQL_HOST"),
+		os.Getenv("MYSQL_DATABASE"),
+	))
 	if err != nil {
 		fmt.Printf("DB Open Error: %s \n", err.Error())
 		os.Exit(1)

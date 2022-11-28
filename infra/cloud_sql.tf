@@ -11,3 +11,14 @@ resource "google_sql_database_instance" "sql" {
     }
   }
 }
+
+resource "google_sql_database" "database" {
+  name     = var.mysql_database
+  instance = google_sql_database_instance.sql.name
+}
+
+resource "google_sql_user" "sql_user" {
+  name     = var.mysql_user
+  instance = google_sql_database_instance.sql.name
+  password = var.mysql_password
+}

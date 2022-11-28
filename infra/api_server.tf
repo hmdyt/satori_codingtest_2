@@ -26,6 +26,13 @@ resource "google_cloudfunctions_function" "api" {
   entry_point           = "hello"
 
   vpc_connector = google_vpc_access_connector.vpc_connector.self_link
+
+  environment_variables = {
+    "MYSQL_USER"     = var.mysql_user,
+    "MYSQL_PASSWORD" = var.mysql_password,
+    "MYSQL_DATABASE" = var.mysql_database,
+    "MYSQL_HOST"     = "satori-codingtest-2:asia-northeast1:sql",
+  }
 }
 
 

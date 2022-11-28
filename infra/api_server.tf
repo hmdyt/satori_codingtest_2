@@ -17,7 +17,7 @@ resource "google_storage_bucket_object" "zip" {
 
 resource "google_cloudfunctions_function" "api" {
   name    = "satori-codingtest-2-api-04" # FIXME: fix name
-  runtime = "go116"
+  runtime = "go119"
 
   available_memory_mb   = 128
   source_archive_bucket = google_storage_bucket.bucket.name

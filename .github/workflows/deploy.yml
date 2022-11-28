@@ -42,7 +42,3 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve -replace=google_cloud_run_service.web
         working-directory: ./infra
-        env:
-          TF_VAR_mysql_user: ${{ secrets.MYSQL_USER }}
-          TF_VAR_mysql_password: ${{ secrets.MYSQL_PASSWORD }}
-          TF_VAR_mysql_database: ${{ secrets.MYSQL_DATABASE }}

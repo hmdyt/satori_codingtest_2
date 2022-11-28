@@ -25,16 +25,7 @@ resource "google_cloudfunctions_function" "api" {
   trigger_http          = true
   entry_point           = "hello"
 
-  vpc_connector = google_vpc_access_connector.vpc_connector.self_link
-
-  environment_variables = {
-    "MYSQL_USER"     = var.mysql_user,
-    "MYSQL_PASSWORD" = var.mysql_password,
-    "MYSQL_DATABASE" = var.mysql_database,
-    "MYSQL_HOST"     = "satori-codingtest-2:asia-northeast1:sql",
-  }
 }
-
 
 resource "google_cloudfunctions_function_iam_member" "invoker" {
   cloud_function = google_cloudfunctions_function.api.name
@@ -42,3 +33,4 @@ resource "google_cloudfunctions_function_iam_member" "invoker" {
   role   = "roles/cloudfunctions.invoker"
   member = "allUsers"
 }
+

@@ -6,10 +6,6 @@ resource "google_cloud_run_service" "web" {
     spec {
       containers {
         image = var.web_container_uri
-        env {
-          name  = "NEXT_PUBLIC_API_HOST"
-          value = "https://asia-northeast1-satori-codingtest-2.cloudfunctions.net/satori-codingtest-2-api-04"
-        }
       }
     }
   }

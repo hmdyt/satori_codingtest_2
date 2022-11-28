@@ -1,7 +1,5 @@
 import axios from "axios"
 
-const HOST = process.env.NEXT_PUBLIC_API_HOST
-
 export type MesuringPoint = {
     id: number
     user_id: number
@@ -19,14 +17,14 @@ export type MesuringPointsResponse = {
 }
 
 export const getMesuringPoints = async (userId: number): Promise<MesuringPoint[]> => {
-    const res = await axios.get<MesuringPointsResponse>(`${HOST}/mesuringpoint/${userId}`)
+    const res = await axios.get<MesuringPointsResponse>(`http://localhost:5017/mesuringpoint/${userId}`)
     return res.data.mesuring_points
 }
 
 export const postMesuringPoint = async (req: MesuringPointRequest): Promise<MesuringPoint> => {
     const reqBody = { user_id: req.userId, body_mass: req.bodyMass }
     const res = await axios.post<MesuringPoint>(
-        `${HOST}/mesuringpoint`,
+        "http://localhost:5017/mesuringpoint",
         reqBody,
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
     )
@@ -34,5 +32,5 @@ export const postMesuringPoint = async (req: MesuringPointRequest): Promise<Mesu
 }
 
 export const deleteMesuringPoint = async (mesuring_point_id: number) => {
-    await axios.delete(`${HOST}/mesuringpoint/${mesuring_point_id}`)
+    await axios.delete(`http://localhost:5017/mesuringpoint/${mesuring_point_id}`)
 }

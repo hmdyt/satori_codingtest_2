@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 
 services:
   web:
@@ -10,7 +10,6 @@ services:
       - "3017:3000"
     environment:
       - NODE_ENV="" # disable production mode
-      - NEXT_PUBLIC_API_HOST=$NEXT_PUBLIC_API_HOST
     entrypoint: sh -c "yarn dev"
 
   api:
@@ -22,11 +21,6 @@ services:
       - ./api:/app
     ports:
       - "5017:5000"
-    environment:
-      - MYSQL_DATABASE=$MYSQL_DATABASE
-      - MYSQL_USER=$MYSQL_USER
-      - MYSQL_PASSWORD=$MYSQL_PASSWORD
-      - MYSQL_HOST=$MYSQL_HOST
     entrypoint: sh -c "go run migrate/migrate.go && FUNCTION_TARGET=hello go run ./entrypoint/main.go"
 
   mysql:
@@ -36,11 +30,10 @@ services:
       - 3306
     environment:
       - MYSQL_ROOT_PASSWORD=rootPassword
-      - MYSQL_DATABASE=$MYSQL_DATABASE
-      - MYSQL_USER=$MYSQL_USER
-      - MYSQL_PASSWORD=$MYSQL_PASSWORD
-      - MYSQL_HOST=$MYSQL_HOST
-
+      - MYSQL_DATABASE=testDatabase
+      - MYSQL_USER=testUser
+      - MYSQL_PASSWORD=testPassword
+    
   swagger-ui:
     image: swaggerapi/swagger-ui
     container_name: "swagger-ui"

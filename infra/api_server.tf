@@ -25,7 +25,9 @@ resource "google_cloudfunctions_function" "api" {
   trigger_http          = true
   entry_point           = "hello"
 
+  vpc_connector = google_vpc_access_connector.vpc_connector.self_link
 }
+
 
 resource "google_cloudfunctions_function_iam_member" "invoker" {
   cloud_function = google_cloudfunctions_function.api.name
@@ -33,4 +35,3 @@ resource "google_cloudfunctions_function_iam_member" "invoker" {
   role   = "roles/cloudfunctions.invoker"
   member = "allUsers"
 }
-

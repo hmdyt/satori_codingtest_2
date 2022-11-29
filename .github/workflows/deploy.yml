@@ -51,3 +51,6 @@ jobs:
 
       - name: Migrate Database
         run: "curl -fi -m 1000 'https://asia-northeast1-satori-codingtest-2.cloudfunctions.net/migration-worker'"
+
+      - name: Health Check
+        run: "curl -fi -m 1000 'https://asia-northeast1-satori-codingtest-2.cloudfunctions.net/satori-codingtest-2-api-04/ping'"

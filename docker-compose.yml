@@ -6,8 +6,8 @@ services:
     container_name: nextjs
     volumes:
       - ./web:/app
-    ports:
-      - "3017:3000"
+    expose:
+      - 3000
     environment:
       - NODE_ENV="" # disable production mode
     entrypoint: sh -c "yarn dev"
@@ -27,6 +27,7 @@ services:
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
       - MYSQL_HOST=mysql:3306
       - MYSQL_NET=tcp
+      - NEXT_HOST=http://web:3000
     entrypoint: sh -c "FUNCTION_TARGET=hello go run ./entrypoint/main.go"
 
   api-migrate:

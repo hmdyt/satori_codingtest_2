@@ -28,11 +28,8 @@ func init() {
 		router.ServeHTTP(w, r)
 	})
 	functions.HTTP("migrate", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Headers", "*")
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "*")
-		w.Header().Set("Access-Control-Request-Method", "*")
-		w.Header().Set("Content-Type", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET")
+		w.Header().Set("Access-Control-Request-Method", "GET")
 		client := db.GetDataBaseClient()
 		defer client.Close()
 		fmt.Println("start migration")

@@ -13,7 +13,6 @@ resource "google_cloud_run_service" "web" {
 
   metadata {
     annotations = {
-      "autoscaling.knative.dev/maxScale"        = "3"
       "run.googleapis.com/vpc-access-connector" = google_vpc_access_connector.vpc_connector.name
       "run.googleapis.com/vpc-access-egress"    = "all-traffic"
     }

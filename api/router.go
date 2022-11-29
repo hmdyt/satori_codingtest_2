@@ -13,7 +13,7 @@ import (
 
 func Router() *mux.Router {
 	router := mux.NewRouter()
-	router.HandleFunc("/{path:.*}", handleProxy(getProxyNextJs())).Methods("GET")
+	// router.HandleFunc("/{path:.*}", handleProxy(getProxyNextJs())).Methods("GET")
 	router.HandleFunc("/ping", getPing).Methods("GET")
 	router.HandleFunc("/user/{user_id}", handler.HandleGetUser).Methods("GET")
 	router.HandleFunc("/user", handler.HandlePostUser).Methods("POST")

@@ -1,3 +1,11 @@
+locals {
+  envs = {
+    "MYSQL_USER"     = var.mysql_user,
+    "MYSQL_PASSWORD" = var.mysql_password,
+    "MYSQL_DATABASE" = var.mysql_database,
+    "MYSQL_HOST"     = var.mysql_host,
+  }
+}
 data "archive_file" "api_archive_file" {
   type        = "zip"
   source_dir  = var.api_dir
@@ -17,27 +25,40 @@ resource "google_storage_bucket_object" "zip" {
 
 resource "google_cloudfunctions_function" "api" {
   name    = "satori-codingtest-2-api-04" # FIXME: fix name
-  runtime = "go119"
+  runtime = var.functions_go_runtime
 
   available_memory_mb   = 128
   source_archive_bucket = google_storage_bucket.bucket.name
   source_archive_object = google_storage_bucket_object.zip.name
   trigger_http          = true
   entry_point           = "hello"
+  environment_variables = local.envs
 
   vpc_connector = google_vpc_access_connector.vpc_connector.self_link
-
-  environment_variables = {
-    "MYSQL_USER"     = var.mysql_user,
-    "MYSQL_PASSWORD" = var.mysql_password,
-    "MYSQL_DATABASE" = var.mysql_database,
-    "MYSQL_HOST"     = "satori-codingtest-2:asia-northeast1:sql",
-  }
 }
 
-
-resource "google_cloudfunctions_function_iam_member" "invoker" {
+resource "google_cloudfunctions_function_iam_member" "invoker_api" {
   cloud_function = google_cloudfunctions_function.api.name
+
+  role   = "roles/cloudfunctions.invoker"
+  member = "allUsers"
+}
+
+resource "google_cloudfunctions_function" "migration_worker" {
+  name    = "migration-worker"
+  runtime = var.functions_go_runtime
+
+  timeout               = 540
+  available_memory_mb   = 128
+  source_archive_bucket = google_storage_bucket.bucket.name
+  source_archive_object = google_storage_bucket_object.zip.name
+  trigger_http          = true
+  entry_point           = "migrate"
+  environment_variables = local.envs
+}
+
+resource "google_cloudfunctions_function_iam_member" "invoker_migration" {
+  cloud_function = google_cloudfunctions_function.migration_worker.name
 
   role   = "roles/cloudfunctions.invoker"
   member = "allUsers"

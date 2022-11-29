@@ -16,6 +16,8 @@ var router *mux.Router
 func init() {
 	router = Router()
 	functions.HTTP("hello", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Methods", "*")
+		w.Header().Set("Access-Control-Request-Method", "*")
 		router.ServeHTTP(w, r)
 	})
 	functions.HTTP("migrate", func(w http.ResponseWriter, r *http.Request) {

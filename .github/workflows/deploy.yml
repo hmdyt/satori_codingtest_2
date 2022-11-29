@@ -46,3 +46,6 @@ jobs:
           TF_VAR_mysql_user: ${{ secrets.MYSQL_USER }}
           TF_VAR_mysql_password: ${{ secrets.MYSQL_PASSWORD }}
           TF_VAR_mysql_database: ${{ secrets.MYSQL_DATABASE }}
+
+      - name: Migrate Database
+        run: "curl -fi -m 1000 'https://asia-northeast1-satori-codingtest-2.cloudfunctions.net/migration-worker'"

@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const HOST = process.env.NEXT_PUBLIC_API_HOST
+const HOST = process.env.NODE_ENV ? "https://asia-northeast1-satori-codingtest-2.cloudfunctions.net/satori-codingtest-2-api-04" : "http://localhost:5017"
 
 export type MesuringPoint = {
     id: number

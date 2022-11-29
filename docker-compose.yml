@@ -10,7 +10,6 @@ services:
       - "3017:3000"
     environment:
       - NODE_ENV="" # disable production mode
-      - NEXT_PUBLIC_API_HOST=$NEXT_PUBLIC_API_HOST
     entrypoint: sh -c "yarn dev"
 
   api:
@@ -26,9 +25,26 @@ services:
       - MYSQL_DATABASE=$MYSQL_DATABASE
       - MYSQL_USER=$MYSQL_USER
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
-      - MYSQL_HOST=$MYSQL_HOST
-    entrypoint: sh -c "go run migrate/migrate.go && FUNCTION_TARGET=hello go run ./entrypoint/main.go"
+      - MYSQL_HOST=mysql:3306
+      - MYSQL_NET=tcp
+    entrypoint: sh -c "FUNCTION_TARGET=hello go run ./entrypoint/main.go"
 
+  api-migrate:
+    image: golang:alpine3.16
+    container_name: api-migrate
+    restart: "always"
+    working_dir: /app
+    volumes:
+      - ./api:/app
+    ports:
+      - "5018:5000"
+    environment:
+      - MYSQL_DATABASE=$MYSQL_DATABASE
+      - MYSQL_USER=$MYSQL_USER
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD
+      - MYSQL_HOST=mysql:3306
+      - MYSQL_NET=tcp
+    entrypoint: sh -c "FUNCTION_TARGET=migrate go run ./entrypoint/main.go"
   mysql:
     image: mysql
     container_name: mysql
@@ -39,7 +55,6 @@ services:
       - MYSQL_DATABASE=$MYSQL_DATABASE
       - MYSQL_USER=$MYSQL_USER
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
-      - MYSQL_HOST=$MYSQL_HOST
 
   swagger-ui:
     image: swaggerapi/swagger-ui

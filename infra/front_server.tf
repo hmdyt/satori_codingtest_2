@@ -9,12 +9,12 @@ resource "google_cloud_run_service" "web" {
         image = var.web_container_uri
       }
     }
-  }
-
-  metadata {
-    annotations = {
-      "run.googleapis.com/vpc-access-connector" = google_vpc_access_connector.vpc_connector.name
-      "run.googleapis.com/vpc-access-egress"    = "all-traffic"
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale"        = "3"
+        "run.googleapis.com/vpc-access-connector" = google_vpc_access_connector.vpc_connector.name
+        "run.googleapis.com/vpc-access-egress"    = "all-traffic"
+      }
     }
   }
 }

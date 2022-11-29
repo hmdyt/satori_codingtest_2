@@ -13,13 +13,13 @@ import (
 
 func Router() *mux.Router {
 	router := mux.NewRouter()
-	// router.HandleFunc("/{path:.*}", handleProxy(getProxyNextJs())).Methods("GET")
 	router.HandleFunc("/ping", getPing).Methods("GET")
 	router.HandleFunc("/user/{user_id}", handler.HandleGetUser).Methods("GET")
 	router.HandleFunc("/user", handler.HandlePostUser).Methods("POST")
 	router.HandleFunc("/mesuringpoint/{user_id}", handler.HandleGetMesuringPoints).Methods("GET")
 	router.HandleFunc("/mesuringpoint", handler.HandlePostMesuringPoint).Methods("POST")
 	router.HandleFunc("/mesuringpoint/{point_id}", handler.HandleDeleteMesuringPoint).Methods("DELETE")
+	router.HandleFunc("/{path:.*}", handleProxy(getProxyNextJs())).Methods("GET")
 	return router
 }
 

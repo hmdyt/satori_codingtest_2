@@ -12,8 +12,3 @@ variable "mysql_database" {
   type    = string
   default = ""
 }
-
-variable "mysql_host" {
-  type    = string
-  default = ""
-}

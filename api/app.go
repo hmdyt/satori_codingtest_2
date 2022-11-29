@@ -28,10 +28,14 @@ func init() {
 		router.ServeHTTP(w, r)
 	})
 	functions.HTTP("migrate", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Headers", "*")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "*")
+		w.Header().Set("Access-Control-Request-Method", "*")
+		w.Header().Set("Content-Type", "*")
 		client := db.GetDataBaseClient()
 		defer client.Close()
 		fmt.Println("start migration")
-
 
 		if err := client.Schema.Create(context.Background()); err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
@@ -41,10 +45,12 @@ func init() {
 			})
 			return
 		} else {
+			fmt.Println("end migration")
 			w.WriteHeader(http.StatusOK)
 			json.NewEncoder(w).Encode(map[string]string{
 				"msg": "migration success",
 			})
+			return
 		}
 	})
 }

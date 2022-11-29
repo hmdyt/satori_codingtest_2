@@ -1,10 +1,9 @@
 name: Deploy
 
-# on:
-#   push:
-#     branches:
-#       - main
-on: push
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   terraform:
@@ -47,7 +46,6 @@ jobs:
           TF_VAR_mysql_user: ${{ secrets.MYSQL_USER }}
           TF_VAR_mysql_password: ${{ secrets.MYSQL_PASSWORD }}
           TF_VAR_mysql_database: ${{ secrets.MYSQL_DATABASE }}
-          TF_VAR_mysql_host: ${{ secrets.MYSQL_HOST }}
 
       - name: Migrate Database
         run: "curl -fi -m 1000 'https://asia-northeast1-satori-codingtest-2.cloudfunctions.net/migration-worker'"

@@ -3,7 +3,8 @@ locals {
     "MYSQL_USER"     = var.mysql_user,
     "MYSQL_PASSWORD" = var.mysql_password,
     "MYSQL_DATABASE" = var.mysql_database,
-    "MYSQL_HOST"     = var.mysql_host,
+    "MYSQL_NET"      = "unix",
+    "MYSQL_HOST"     = "/cloudsql/${var.project_id}:${var.region}:${google_sql_database_instance.sql.name}"
   }
 }
 data "archive_file" "api_archive_file" {
@@ -55,6 +56,8 @@ resource "google_cloudfunctions_function" "migration_worker" {
   trigger_http          = true
   entry_point           = "migrate"
   environment_variables = local.envs
+
+  vpc_connector = google_vpc_access_connector.vpc_connector.self_link
 }
 
 resource "google_cloudfunctions_function_iam_member" "invoker_migration" {

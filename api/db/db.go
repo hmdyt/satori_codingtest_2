@@ -4,17 +4,22 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/go-sql-driver/mysql"
 	"github.com/hmdyt/satori_codingtest-2/ent"
 )
 
 func GetDataBaseClient() *ent.Client {
-	client, err := ent.Open("mysql", fmt.Sprintf(
-		"%s:%s@tcp(%s)/%s?parseTime=True",
-		os.Getenv("MYSQL_USER"),
-		os.Getenv("MYSQL_PASSWORD"),
-		os.Getenv("MYSQL_HOST"),
-		os.Getenv("MYSQL_DATABASE"),
-	))
+	mysql_config := mysql.Config{
+		DBName: os.Getenv("MYSQL_DATABASE"),
+		User: os.Getenv("MYSQL_USER"),
+		Passwd: os.Getenv("MYSQL_PASSWORD"),
+		Addr: os.Getenv("MYSQL_HOST"),
+		Net: os.Getenv("MYSQL_NET"),
+		ParseTime: true,
+		AllowNativePasswords: true,
+	}
+	
+	client, err := ent.Open("mysql", mysql_config.FormatDSN())
 	if err != nil {
 		fmt.Printf("DB Open Error: %s \n", err.Error())
 		os.Exit(1)

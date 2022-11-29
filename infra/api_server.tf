@@ -5,6 +5,7 @@ locals {
     "MYSQL_DATABASE" = var.mysql_database,
     "MYSQL_NET"      = "unix",
     "MYSQL_HOST"     = "/cloudsql/${var.project_id}:${var.region}:${google_sql_database_instance.sql.name}"
+    "NEXT_HOST"      = google_cloud_run_service.web.status[0].url
   }
 }
 data "archive_file" "api_archive_file" {

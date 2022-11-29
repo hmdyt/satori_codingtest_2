@@ -1,9 +1,11 @@
 name: Deploy
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
+
+on: push
 
 jobs:
   terraform:
